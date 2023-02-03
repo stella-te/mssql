@@ -13,6 +13,16 @@ git add .
 
 git commit -m "first commit"
 
+git remote set-url origin https://github.com/stella-vir/REPO.git
+
 git push --set-upstream origin main
+
+git config --list
+
+git config --global user.name "stella-te"
+
+git config --global user.email "stella@tradingeconomics.com"
+
+.git/config
 
 git rm -r --cached .
