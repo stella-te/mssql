@@ -1,6 +1,7 @@
 // DOCUMENTATION:
 // http://docs.tradingeconomics.com/?javascript#streaming
 
+const fs = require('fs');
 
 let myKey = require('./userKey')
 
@@ -26,13 +27,25 @@ Client.subscribe('commodities')
 //For Economic calendar events: Client.subscribe('calendar')
 //For News: Client.subscribe('news')
 
+var arr = []
+
 Client.on('message', function (msg) {
   // console.log('\n Data from TradingEconomics stream: ', msg.topic)
   // console.log(msg)
 
   //parse/save msg to DB
-  console.log(msg.price);
+  p = msg.price;
+  arr.push(p);
+  console.log(p);
+
+  fs.writeFile('./test.txt', JSON.stringify(arr), err => {
+    if (err) {
+      console.error(err);
+    }
+    // file written successfully
+  });
 })
+
 
 
 
