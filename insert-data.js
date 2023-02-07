@@ -34,9 +34,17 @@ Client.on('message', function (msg) {
   // console.log(msg)
 
   //parse/save msg to DB
+  n = msg.s;
   p = msg.price;
-  arr.push(p);
-  console.log(p);
+
+  let obj = {
+    name: n,
+    price: p
+  }
+
+  console.log(obj);
+
+  arr.push(obj);
 
   fs.writeFile('./test.txt', JSON.stringify(arr), err => {
     if (err) {
