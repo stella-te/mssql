@@ -1,9 +1,11 @@
 // DOCUMENTATION:
 // http://docs.tradingeconomics.com/?javascript#streaming
 
+
 const fs = require('fs');
 
 let myKey = require('./userKey')
+let mySym = require('./symbols.js')
 
 let keySecretArray = myKey.key.split(':')
 
@@ -21,6 +23,7 @@ var te_client = require('./te_client'),
     //reconnect: true
   })
 
+
 // Client.subscribe('EURUSD:CUR')
 Client.subscribe('commodities')
 
@@ -29,29 +32,46 @@ Client.subscribe('commodities')
 
 var arr = []
 
+
 Client.on('message', function (msg) {
   // console.log('\n Data from TradingEconomics stream: ', msg.topic)
   // console.log(msg)
 
   //parse/save msg to DB
-  n = msg.s;
+  s = msg.s;
   p = msg.price;
 
-  let obj = {
-    name: n,
-    price: p
+  var n = ''
+  nameArr = mySym.arr
+  // console.log(nameArr);
+
+  // concat two names
+  for (var j=0; j<nameArr.length;j++) {
+    if (nameArr[j].symbol == s) {
+      n = nameArr[j].name;
+      // arr += sym;
+      break;
+    }
   }
 
+  let obj = {
+    commodity: n,
+    symbol: s,
+    price: p,
+  }
   console.log(obj);
 
   arr.push(obj);
 
-  fs.writeFile('./test.txt', JSON.stringify(arr), err => {
+
+
+  fs.writeFile('./test.json.txt', JSON.stringify(arr), err => {
     if (err) {
       console.error(err);
     }
     // file written successfully
   });
+
 })
 
 
