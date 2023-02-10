@@ -10,9 +10,16 @@ git add .
 
 git commit -m "first commit"
 
-git remote set-url origin https://github.com/stella-vir/REPO.git
-
 git push --set-upstream origin main
+
+.gitignore
+git rm -rf --cached .
+
+
+
+------------------------------------------------------------------------
+
+git remote set-url origin https://github.com/stella-vir/REPO.git
 
 git rm -r --cached .
 
